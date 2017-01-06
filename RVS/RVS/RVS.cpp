@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "RVS.h"
 #include "MemoryMapped.h"
 
 #include <iostream>  
@@ -12,6 +13,9 @@
 
 
 using namespace std;
+
+
+
 
 //========================================================
 // SNP struct
@@ -45,130 +49,10 @@ inline bool locCompare(SNP lhs, SNP rhs) { return lhs < rhs; }
 //========================================================
 
 
-//Extracts string from a MemoryMapped class
-inline string getString(MemoryMapped &charArray, int start, int end) {
-	string ret;
-	for (; start < end; start++) { ret += charArray[start]; }
-	return ret;
-}
-
-string trim(string str)
-{
-	str.erase(std::remove(str.begin(), str.end(), ' '), str.end());
-	return str;
-}
-
-int findIndex(string query, vector<string> v) {
-	auto index = std::find(v.begin(), v.end(), query);
-	if (index != v.end())
-		return -1;
-	else 
-		return index - v.begin();
-}
-
-vector<string> parseHeader(MemoryMapped &vcf, int &pos) {
-	int lastPos = 0;
-
-	//TODO: possible point of failure if file is not formatted properly
-	//look for last header line
-	while (true) {
-
-		if (vcf[pos] == '\n') {
-			if (vcf[pos + 1] != '#')
-				break;
-			lastPos = pos + 2;
-		}
-		pos++;
-	}
-
-	pos = lastPos;
-	vector<string> colNames;
-
-	//parse the header
-	while (true) {
-		if (vcf[pos] == '\t') {
-			colNames.push_back(getString(vcf, lastPos, pos));
-			lastPos = pos + 1;
-		}
-		else if (vcf[pos] == '\n') {
-			colNames.push_back(getString(vcf, lastPos, pos));
-			pos++;
-			break;
-		}
-		pos++;
-	}
-
-	return colNames;
-}
 
 
-/* 
-#' Function to seperates the case and control IDs.
-#'
-#' This function read the header of the vcf file (rows starting with # in vcf) and split the case and controls according to the caseID_file. It returns two vectors each of which is the position index of case or control in the list of samples in vcf file (the last row starting with #).
-#' @param vcf_file The saving address and filename  of the vcf file in the format of 'address/filename'.
-#' @param caseID_file The  file including case IDs in the format of 'address/filename'.
-#' @param nhead The number of the lines in the vcf file which started with #.
-#' @param ncol_ID The number of columns before the sample IDs start in the last line of the headers in the vcf file, default=9.
-#' @return a list which inclues two vectors that correspond to the position index of the cases or controls in the last head row of the VCF with IDs, but columns are shifted by the ncol_ID columns.
-# @examples getIDs("../data/1g113low_1g56exomehigh_filtered.hg19.chr11_1000snps.vcf","../data/bam.txt",128,9)
-*/
-std::unordered_map<string, bool> getIDs(string vcfDir, string caseIDDir, int ncolID) {
 
-	MemoryMapped vcf(vcfDir);
-	int pos = 0;
-	std::vector<string> IDs = parseHeader(vcf, pos);
 
-	int lineCounter = 0;
-
-	MemoryMapped caseID(caseIDDir);
-	pos = 0;
-	int startPos = pos;
-	std::vector<string> caseIDs;
-
-	while (pos < caseID.mappedSize()) {
-		if (caseID[pos] == '\n') {
-			caseIDs.push_back(trim(getString(caseID, startPos, pos)));
-			lineCounter++;
-			startPos = pos + 1;
-		}
-		pos++;
-	}
-	string lastLine = trim(getString(caseID, startPos, pos));
-	if (lastLine.size() > 0) {
-		caseIDs.push_back(lastLine);
-		lineCounter++;
-	}
-
-	std::unordered_map<string, bool> IDmap;
-
-	int countControl = 0;
-
-	//control -> false
-	//case -> true
-	for (size_t i = 0; i < IDs.size(); i++) {
-
-		int index = findIndex(IDs[i], caseIDs);
-		if (index > -1) {
-			IDmap.insert(std::pair<string, bool>(IDs[i], false));
-			countControl++;
-		}
-		else {
-			IDmap.insert(std::pair<string, bool>(IDs[i], true));
-		}
-	}
-
-	int countCase = IDmap.size() - countControl;
-
-	cout << "This VCF includes "  + to_string(IDmap.size()) + " samples with " + to_string(countControl) +
-		" controls and " + to_string(countCase) + " cases.\n";
-
-	if (lineCounter != countCase)
-		cout << "Warning: " + to_string(lineCounter) + " lines were counted in case ID file but only " +
-		to_string(countCase) + " were found to correspond to columns in .vcf file.\n";
-
-	return IDmap;
-}
 
 /*
 #' Function to get Likelihoods for all possible genotypes given the set of alleles defined in the REF and ALT fields
@@ -671,18 +555,6 @@ void vcf_process(string file, string caseID_file) {
 	if (snps.size() == 0)
 		cout << "No SNPs left after filtering .vcf file\n";
 
-
-	/*//print out genotype likelihood
-
-	for (size_t i = 0; i < snps[45].gl.size(); i++) {
-		cout << snps[45].L00(i);
-		cout << '\t';
-		cout << snps[45].L01(i);
-		cout << '\t';
-		cout << snps[45].L11(i);
-		cout << '\n';
-	}*/
-
 	getExpGeno(snps);
 	
 	if (snps.size() == 0)
@@ -713,33 +585,6 @@ void vcf_process(string file, string caseID_file) {
 
 	return;
 }
-
-
-/*
-vcf_process<-function(file = 'example/example_1000snps.vcf',
-	caseID_file = 'example/caseID.txt',
-	nhead = 128, ncol_ID = 9, missing_th = 0.2, nvar_tot = 1000, nread = 300, maf_cut = 0.05, common = TRUE)
-{
-	geno<-get_exp_MAF(exp_prob$pop_frq, exp_prob$exp_cond_prob, exp_prob$SNPs[, 'chr'], exp_prob$SNPs[, 'loc'], ncase = length(IDs$cases), maf_cut = maf_cut, common = common)
-
-		if (!class(geno) % in%'NULL') {
-			ngeno = nrow(geno$SNPs)
-				if (common == TRUE) {
-					group = 'common'
-				}
-				else { group = 'rare' }
-				cat('There are ', ngeno, group, 'variants. \n\n')
-
-					SNPs = geno$SNPs; P = geno$P; Geno = geno$Geno; ncase = geno$ncase
-					ncont = geno$ncont; nsnp = geno$nsnp; Y = geno$Y;
-				write.table('SNPs', paste0(nsnp, 'snps_left_for', ncase, 'ncase', ncont, 'ncont.txt', row.names = F, quote = F, sep = '\t', colnames = T))
-					return(geno)
-		}
-
-
-}
-*/
-
 
 int main() {
 
