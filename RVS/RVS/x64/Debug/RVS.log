@@ -1,18 +1,4 @@
-﻿  RVS.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(188): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(189): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(200): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(365): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(370): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(371): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(372): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(422): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(423): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(424): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.cpp(425): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-  ProcessHelper.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\processhelper.cpp(49): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\processhelper.cpp(160): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
+﻿  ProcessVCF.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.h(91): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.pdb (Full PDB)
