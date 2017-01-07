@@ -4,7 +4,6 @@
 
 #include <string>
 #include <vector>
-#include <unordered_map>
 #include <algorithm>
 
 //========================================================
@@ -24,6 +23,8 @@ struct SNP {
 
 	std::vector<genotypeLikelihood> gl;
 	std::vector<double> p;
+	std::vector<double> EG;
+
 	double maf = NULL;
 
 	inline bool operator<(SNP& snp2) { return this->loc < snp2.loc; }
@@ -39,15 +40,21 @@ inline bool locCompare(SNP lhs, SNP rhs) { return lhs < rhs; }
 // functions
 //========================================================
 
-//VCFHelper.cpp
+//HelperVCF.cpp
 std::vector<std::string> parseHeader(MemoryMapped &vcf, int &pos);
-std::unordered_map<std::string, bool> getIDs(std::string vcfDir, std::string caseIDDir, int ncolID);
+std::vector<bool> getIDs(std::string vcfDir, std::string caseIDDir, int ncolID);
 SNP initSNP(MemoryMapped &vcf, std::vector<int> ind, int ncolID);
-std::vector<SNP> parseAndFilter(std::string vcfDir, int ncolID, double missingTh, std::unordered_map<std::string, bool> &IDmap);
+std::vector<SNP> parseAndFilter(std::string vcfDir, int ncolID, double missingTh, std::vector<bool> &IDmap);
 
 //Statistics.cpp
 std::vector<double> calcEM(SNP &snp);
 std::vector<double> calcEG(SNP &snp);
+std::vector<double> LogisticRegression(std::vector<bool> y, std::vector<double> x);
+double LogisticRegressionInterceptOnly(std::vector<bool> y, std::vector<double> x);
+
+//Tests.cpp
+void RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rsv);
+
 
 //========================================================
 // inline functions

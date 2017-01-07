@@ -4,7 +4,6 @@
 
 #include <iostream>  
 #include <string>
-#include <unordered_map>
 #include <vector>
 
 /*
@@ -35,6 +34,7 @@ void getExpGeno(std::vector<SNP> &snps) {
 		p = calcEM(snps[i]);
 		snps[i].p = p;
 		EG = calcEG(snps[i]);
+		snps[i].EG = EG;
 
 		//check and filter if variant is homozygous
 		mean = 0;
@@ -110,17 +110,8 @@ void getExpMAF(std::vector<SNP> &snps, double mafCut, bool common) {
 /*
 Gets the expected probabilities of the genotypes E(G_ij | D_ij) from a VCF file
 */
-void vcf_process() {
-
-	//TODO: take as input from command line
-	//---------------------------------------
-	bool common = true;
-	double mafCut = 0.05;
-	std::string vcfDir = "C:/Users/Scott/Desktop/RVS-master/example/example_1000snps.vcf";
-	std::string caseIDDir = "C:/Users/Scott/Desktop/RVS-master/example/caseID.txt";
-	//---------------------------------------
-
-	std::unordered_map<std::string, bool> IDmap = getIDs(vcfDir, caseIDDir, 9);
+std::vector<SNP> vcf_process(std::string vcfDir, std::string caseIDDir,
+	double mafCut, bool common, std::vector<bool> IDmap) {
 	
 	std::vector<SNP> snps = parseAndFilter(vcfDir, 9, 0.2, IDmap);
 
@@ -152,13 +143,23 @@ void vcf_process() {
 		}
 	}
 
-	return;
+	return snps;
 }
 
 int main() {
 
-	vcf_process();
+	//TODO: take as input from command line
+	//---------------------------------------
+	bool common = true;
+	double mafCut = 0.05;
+	std::string vcfDir = "C:/Users/Scott/Desktop/RVS-master/example/example_1000snps.vcf";
+	std::string caseIDDir = "C:/Users/Scott/Desktop/RVS-master/example/caseID.txt";
+	//---------------------------------------
 
+	std::vector<bool> IDmap = getIDs(vcfDir, caseIDDir, 9);
+
+	std::vector<SNP> snps = vcf_process(vcfDir, caseIDDir, mafCut, common, IDmap);
+	RVSasy(snps, IDmap, true);
 
 	//keep console open while debugging
 	//TODO: be sure to remove eventually!

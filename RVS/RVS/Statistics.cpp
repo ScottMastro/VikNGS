@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "RVS.h"
 
+#include <iostream>  
+#include <math.h> 
+
 /*
 Uses EM algorithm to estimate the genotype frequencies in the sample
 
@@ -97,4 +100,78 @@ std::vector<double> calcEG(SNP &snp) {
 	}
 
 	return EG;
+}
+
+std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x) {
+
+	double w = 0;
+	double w0 = 0;
+	double learningRate = 0.02;
+
+	double wlast = 100;
+	double w0last = 100;
+
+	double wgrad;
+	double w0grad;
+
+	double tmp = 0;
+	int iteration = 0;
+
+	while (true) {
+		iteration++;
+		wgrad = 0;
+		w0grad = 0;
+		for (size_t i = 0; i < y.size(); i++) {
+			if (x[i] != NULL) {
+				tmp = y[i] - (1.0 / (1.0 + exp(-(w * x[i] + w0))));
+				wgrad += x[i] * tmp;
+				w0grad += tmp;
+			}
+		}
+
+		w += learningRate * wgrad;
+		w0 += learningRate * w0grad;
+
+		if (iteration > 1000 || (abs(w - wlast) < 0.0000001 && abs(w0 - w0last) < 0.0000001)) {
+			std::vector<double> out;
+			out.push_back(w0);
+			out.push_back(w);
+			std::cout << w0;
+			std::cout << '\n';
+
+			return out;
+		}
+
+		wlast = w;
+		w0last = w0;
+	}
+}
+
+double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x) {
+
+	double w0 = 0;
+	double learningRate = 0.02;
+
+	double w0last = 100;
+	double w0grad;
+
+	int iteration = 0;
+
+	while (true) {
+		iteration++;
+		w0grad = 0;
+		for (size_t i = 0; i < y.size(); i++)
+			if (x[i] != NULL)
+				w0grad += y[i] - (1.0 / (1.0 + exp(-w0)));
+
+		w0 += learningRate * w0grad;
+
+		if (iteration > 1000 || abs(w0 - w0last) < 0.0000001)
+			return w0;
+
+		w0last = w0;
+
+		std::cout << w0;
+		std::cout << '\n';
+	}
 }

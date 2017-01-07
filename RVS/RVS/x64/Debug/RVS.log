@@ -1,4 +1,4 @@
-﻿  ProcessVCF.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.h(91): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+﻿  Tests.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs\rvs.h(98): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.pdb (Full PDB)
