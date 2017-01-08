@@ -4,14 +4,59 @@
 #include <iostream>  
 #include <vector>
 
-void RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rsv) {
-	LogisticRegression(IDmap, snps[0].EG);
-	LogisticRegressionInterceptOnly(IDmap, snps[0].EG);
 
-
+/*
+#'  Function to calcualte the robust variance of \eqn{E(Gij|Dij)} for case
+#'
+#'   Use formule \eqn{Var(X)=E(X^2)-E(X)^2} to calculate the variance of genotypes. It is called from \code{\link{RVS_asy}},\code{\link{RVS_btrap}}, and \code{\link{calc_ScoreV_RVS}}.
+#' @param P  the genotype frequency, calcualted from EM algorithm
+#' @return the Robust variance of E(Gij|Dij)
+*/
+inline double calcRobustVar(std::vector<double> p) {
+	return (4 * p[2] + p[1]) - pow(2 * p[2] + p[1], 2);
 }
 
 
+void RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rsv) {
+
+	SNP snp = snps[0];
+
+
+	LogisticRegression(IDmap, snp.EG);
+	LogisticRegressionInterceptOnly(IDmap, snp.EG);
+
+	double p = 0;
+	int n = 0;
+
+	for (size_t i = 0; i < snp.EG.size(); i++) {
+		n += snp.EG[i] != NULL;
+		p += (snp.EG[i] != NULL) && (IDmap[i] == 1);
+	}
+
+	p = p / n;
+	double q = 1 - p;
+
+	double var = 0;
+	double mean = 0;
+	n = 0;
+
+	for (size_t i = 0; i < snp.EG.size(); i++)
+		if (IDmap[i] == 0 && snp.EG[i] != NULL) {
+			mean += snp.EG[i];
+			n++;
+		}
+	mean = mean / n;
+
+	for (size_t i = 0; i < snp.EG.size(); i++)
+		if (IDmap[i] == 0 && snp.EG[i] != NULL)
+			var += pow(snp.EG[i] - mean, 2);
+	var = var / (n - 1);
+
+	double v = q * calcRobustVar(snp.p) + p * var;
+
+	//  x = anova(a,b,test='Rao')
+
+}
 
 
 /*
@@ -37,12 +82,7 @@ RVS_asy = function(Y, X, P, RVS = 'TRUE') {
 
 ## run anlysis for non-NA X only
 
-	Y = Y[!is.na(X)]
-		X = X[!is.na(X)]
-		a = (glm(Y~1, family = 'binomial'))
-		b = glm(Y~X, family = 'binomial')
-		p = length(X[Y == 1]) / length(X)
-		q = 1 - p
+
 #  if(RVS %in% c('TRUE','True','true','T','t')) {
 		v = q*as.numeric(calc_robust_Var(P)) + p*var(X[Y == 0],na.rm = TRUE)
 # }else{

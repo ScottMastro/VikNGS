@@ -49,8 +49,8 @@ std::vector<SNP> parseAndFilter(std::string vcfDir, int ncolID, double missingTh
 //Statistics.cpp
 std::vector<double> calcEM(SNP &snp);
 std::vector<double> calcEG(SNP &snp);
-std::vector<double> LogisticRegression(std::vector<bool> y, std::vector<double> x);
-double LogisticRegressionInterceptOnly(std::vector<bool> y, std::vector<double> x);
+std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x);
+double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x);
 
 //Tests.cpp
 void RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rsv);

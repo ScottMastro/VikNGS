@@ -102,6 +102,133 @@ std::vector<double> calcEG(SNP &snp) {
 	return EG;
 }
 
+
+std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x) {
+	double w0 = 0;
+	double w = 0;
+
+	double w0last = 1;
+	double wlast = 1;
+
+	double temp;
+	double sigmoid;
+	double det;
+
+	double gradw0;
+	double gradw;
+	double a;
+	double bc;
+	double d;
+
+	int iteration = 0;
+
+	while (true) {
+
+		iteration++;
+
+		gradw0 = 0;
+		gradw = 0;
+		a = 0;
+		bc = 0;
+		d = 0;
+
+		for (size_t i = 0; i < y.size(); i++) {
+			if (x[i] != NULL) {
+				sigmoid = (1.0 / (1.0 + exp(-(w * x[i] + w0))));
+
+				//calculate 1st derivative of likelihood function
+				temp = sigmoid - y[i];
+				gradw0 += temp;
+				gradw += temp * x[i];
+
+				//calculate Hessian matrix
+				temp = sigmoid * (1 - sigmoid);
+				a += temp;
+				bc += temp * x[i];
+				d += temp * x[i] * x[i];
+			}
+		}
+
+		temp = a*d - bc*bc;
+		if (temp == 0) {
+			std::cout << "Warning: Hessian not invertible (logistic regression).\n";
+			std::vector<double> out;
+			out.push_back(w0);
+			out.push_back(w);
+		}
+
+		det = 1 / temp;
+
+		w0 -= det * ((d * gradw0) + (-bc * gradw));
+		w -= det * ((-bc * gradw0) + (a * gradw));
+
+		if (iteration > 100 || (abs(w - wlast) < 1e-7 && abs(w0 - w0last) < 1e-7 && iteration > 1)) {
+
+			if(iteration > 100)
+				std::cout << "Warning: Logistic regression failed to converge after 100 iterations.\n";
+
+			std::vector<double> out;
+			out.push_back(w0);
+			out.push_back(w);
+			return out;
+		}
+
+		wlast = w;
+		w0last = w0;
+	}
+}
+
+
+double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x) {
+	double w0 = 0;
+	double w = 0;
+
+	double w0last = 1;
+
+	double sigmoid;
+
+	double gradw0;
+	double hessw0;
+
+	int iteration = 0;
+
+	while (true) {
+
+		iteration++;
+
+		gradw0 = 0;
+		hessw0 = 0;
+
+		for (size_t i = 0; i < y.size(); i++) {
+			if (x[i] != NULL) {
+
+				sigmoid = (1.0 / (1.0 + exp(-w0)));
+
+				//calculate 1st derivative of likelihood function
+				gradw0 += sigmoid - y[i];
+
+				//calculate 2nd derivative of likelihood function
+				hessw0 += sigmoid * (1 - sigmoid);
+			}
+		}
+
+		w0 -= gradw0/hessw0;
+
+		if (iteration > 100 || (abs(w0 - w0last) < 1e-7 && iteration > 1)) {
+
+			if (iteration > 100)
+				std::cout << "Warning: Logistic regression failed to converge after 100 iterations.\n";
+
+			return w0;
+		}
+
+		w0last = w0;
+	}
+}
+
+
+//Logistic regression with gradient descent (slower).
+/*
 std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x) {
 
 	double w = 0;
@@ -136,9 +263,6 @@ std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double>
 			std::vector<double> out;
 			out.push_back(w0);
 			out.push_back(w);
-			std::cout << w0;
-			std::cout << '\n';
-
 			return out;
 		}
 
@@ -146,6 +270,7 @@ std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double>
 		w0last = w0;
 	}
 }
+
 
 double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x) {
 
@@ -170,8 +295,6 @@ double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double>
 			return w0;
 
 		w0last = w0;
-
-		std::cout << w0;
-		std::cout << '\n';
 	}
 }
+*/
