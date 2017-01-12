@@ -32,6 +32,16 @@ struct SNP {
 	inline double L01(int index) { return this->gl[index].L01; }
 	inline double L11(int index) { return this->gl[index].L11; }
 
+	double var = 0;
+	double mean = 0;
+	double n = 0;
+	double controlvar = 0;
+	double controlmean = 0;
+	double ncontrol = 0;
+	double casevar = 0;
+	double casemean = 0;
+	double ncase = 0;
+
 };
 
 inline bool locCompare(SNP lhs, SNP rhs) { return lhs < rhs; }
@@ -55,8 +65,9 @@ double scoreTest(std::vector<bool> &y, std::vector<double> &x);
 double chiSquareOneDOF(double);
 
 //Tests.cpp
+void calcMeanVar(std::vector<bool> &, std::vector<SNP> &);
 std::vector<double> RVSasy(std::vector<SNP> &, std::vector<bool> &, bool );
-
+void RVSbtrap(std::vector<SNP> &, std::vector<bool> &, bool, int);
 
 //========================================================
 // inline functions

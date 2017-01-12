@@ -145,6 +145,8 @@ int main() {
 	std::vector<bool> IDmap = getIDs(vcfDir, caseIDDir, 9);
 
 	std::vector<SNP> snps = vcf_process(vcfDir, caseIDDir, mafCut, common, IDmap);
+
+	calcMeanVar(IDmap, snps);
 	std::vector<double> pvals = RVSasy(snps, IDmap, true);
 
 	std::cout << "Chr\tLoc\tMAF\tp-value\n";
@@ -160,6 +162,9 @@ int main() {
 			std::cout << '\n';
 		}
 	}
+
+	RVSbtrap(snps, IDmap, true, 100);
+
 
 	//keep console open while debugging
 	//TODO: be sure to remove eventually!
