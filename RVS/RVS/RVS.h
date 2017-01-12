@@ -41,19 +41,21 @@ inline bool locCompare(SNP lhs, SNP rhs) { return lhs < rhs; }
 //========================================================
 
 //HelperVCF.cpp
-std::vector<std::string> parseHeader(MemoryMapped &vcf, int &pos);
-std::vector<bool> getIDs(std::string vcfDir, std::string caseIDDir, int ncolID);
-SNP initSNP(MemoryMapped &vcf, std::vector<int> ind, int ncolID);
-std::vector<SNP> parseAndFilter(std::string vcfDir, int ncolID, double missingTh, std::vector<bool> &IDmap);
+std::vector<std::string> parseHeader(MemoryMapped &, int &);
+std::vector<bool> getIDs(std::string, std::string, int);
+SNP initSNP(MemoryMapped &, std::vector<int>, int);
+std::vector<SNP> parseAndFilter(std::string, int, double, std::vector<bool> &);
 
 //Statistics.cpp
-std::vector<double> calcEM(SNP &snp);
-std::vector<double> calcEG(SNP &snp);
-std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x);
-double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x);
+std::vector<double> calcEM(SNP &);
+std::vector<double> calcEG(SNP &);
+std::vector<double> logisticRegression(std::vector<bool> &, std::vector<double> &);
+double logisticRegressionInterceptOnly(std::vector<bool> &, std::vector<double> &);
+double scoreTest(std::vector<bool> &y, std::vector<double> &x);
+double chiSquareOneDOF(double);
 
 //Tests.cpp
-void RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rsv);
+std::vector<double> RVSasy(std::vector<SNP> &, std::vector<bool> &, bool );
 
 
 //========================================================

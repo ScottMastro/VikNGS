@@ -66,7 +66,7 @@ std::vector<double> calcEM(SNP &snp) {
 
 
 /*
-Function to calculate the conditional expected genotype probability E( P(G_ij | D_ij) ) 
+Calculates the conditional expected genotype probability E( P(G_ij | D_ij) ) 
 given the genotype likelihoods P(D_ij | G_ij = g) and frequencies.
 
 E( P(G_ij | D_ij) ) = sum from g=0 to 2 P(G_ij = g | D_ij),
@@ -103,46 +103,59 @@ std::vector<double> calcEG(SNP &snp) {
 }
 
 
-std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double> &x) {
-	double w0 = 0;
-	double w = 0;
+/*
+Applies sigmoid function s(z) = 1/(1+exp^z)
 
-	double w0last = 1;
-	double wlast = 1;
+@param z Input to sigmoid function
+@return s(z).
+*/
+inline double sigmoid(double z){
+	return (1.0 / (1.0 + exp(z))); 
+}
 
+/*
+Performs logistic regression using Newton's method. Estimates intercept (B0) and
+coefficient for explanatory variable (B1).
+
+@param y Response variable (vector of 0 and 1).
+@param x Explanatory variable.
+@return A vector containing the estimates of B0 and B1 as the first and second elements respectively.
+*/
+std::vector<double> logisticRegression(std::vector<bool> &y, std::vector<double> &x) {
+	double B0 = 0;
+	double B = 0;
+	double lastB0 = 1;
+	double lastB = 1;
 	double temp;
-	double sigmoid;
+	double s;
 	double det;
-
-	double gradw0;
-	double gradw;
+	double gradB0;
+	double gradB;
 	double a;
 	double bc;
 	double d;
-
 	int iteration = 0;
 
 	while (true) {
-
 		iteration++;
 
-		gradw0 = 0;
-		gradw = 0;
+		gradB0 = 0;
+		gradB = 0;
 		a = 0;
 		bc = 0;
 		d = 0;
 
 		for (size_t i = 0; i < y.size(); i++) {
 			if (x[i] != NULL) {
-				sigmoid = (1.0 / (1.0 + exp(-(w * x[i] + w0))));
+				s = sigmoid(-(B * x[i] + B0));
 
 				//calculate 1st derivative of likelihood function
-				temp = sigmoid - y[i];
-				gradw0 += temp;
-				gradw += temp * x[i];
+				temp = s - y[i];
+				gradB0 += temp;
+				gradB += temp * x[i];
 
 				//calculate Hessian matrix
-				temp = sigmoid * (1 - sigmoid);
+				temp = s * (1 - s);
 				a += temp;
 				bc += temp * x[i];
 				d += temp * x[i] * x[i];
@@ -153,77 +166,154 @@ std::vector<double> LogisticRegression(std::vector<bool> &y, std::vector<double>
 		if (temp == 0) {
 			std::cout << "Warning: Hessian not invertible (logistic regression).\n";
 			std::vector<double> out;
-			out.push_back(w0);
-			out.push_back(w);
+			out.push_back(B0);
+			out.push_back(B);
 		}
 
 		det = 1 / temp;
 
-		w0 -= det * ((d * gradw0) + (-bc * gradw));
-		w -= det * ((-bc * gradw0) + (a * gradw));
+		B0 -= det * ((d * gradB0) - (bc * gradB));
+		B -= det * ((a * gradB) - (bc * gradB0));
 
-		if (iteration > 100 || (abs(w - wlast) < 1e-7 && abs(w0 - w0last) < 1e-7 && iteration > 1)) {
+		if (iteration > 100 || (abs(B - lastB) < 1e-7 && abs(B0 - lastB0) < 1e-7 && iteration > 1)) {
 
 			if(iteration > 100)
 				std::cout << "Warning: Logistic regression failed to converge after 100 iterations.\n";
 
 			std::vector<double> out;
-			out.push_back(w0);
-			out.push_back(w);
+			out.push_back(B0);
+			out.push_back(B);
 			return out;
 		}
-
-		wlast = w;
-		w0last = w0;
+		lastB = B;
+		lastB0 = B0;
 	}
 }
 
+/*
+Performs logistic regression using Newton's method. Estimates intercept (B0) only.
 
-double LogisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x) {
-	double w0 = 0;
-	double w = 0;
-
-	double w0last = 1;
-
-	double sigmoid;
-
-	double gradw0;
-	double hessw0;
-
+@param y Response variable (vector of 0 and 1).
+@param x Explanatory variable.
+@return Estimate of B0.
+*/
+double logisticRegressionInterceptOnly(std::vector<bool> &y, std::vector<double> &x) {
+	double B0 = 0;
+	double B = 0;
+	double lastB0 = 1;
+	double s;
+	double gradB0;
+	double hessB0;
 	int iteration = 0;
 
 	while (true) {
-
 		iteration++;
-
-		gradw0 = 0;
-		hessw0 = 0;
+		gradB0 = 0;
+		hessB0 = 0;
+		s = sigmoid(-B0);
 
 		for (size_t i = 0; i < y.size(); i++) {
 			if (x[i] != NULL) {
 
-				sigmoid = (1.0 / (1.0 + exp(-w0)));
-
 				//calculate 1st derivative of likelihood function
-				gradw0 += sigmoid - y[i];
+				gradB0 += s - y[i];
 
 				//calculate 2nd derivative of likelihood function
-				hessw0 += sigmoid * (1 - sigmoid);
+				hessB0 += s * (1 - s);
 			}
 		}
 
-		w0 -= gradw0/hessw0;
+		B0 -= gradB0/hessB0;
 
-		if (iteration > 100 || (abs(w0 - w0last) < 1e-7 && iteration > 1)) {
-
+		if (iteration > 100 || (abs(B0 - lastB0) < 1e-7 && iteration > 1)) {
 			if (iteration > 100)
 				std::cout << "Warning: Logistic regression failed to converge after 100 iterations.\n";
+			return B0;
+		}
+		lastB0 = B0;
+	}
+}
 
-			return w0;
+/*
+Calculates score test statistic.
+score = sum((Y - Yhat) * X)
+testStastic = score^2 / [sum((Y - Yhat)^2 * var(X))]
+
+@param y Vector with phenotypes (case/control).
+@param x Vector with E(G | D).
+@return Test statistic following a chi-squared distribution with 1 degree of freedom.
+*/
+double scoreTest(std::vector<bool> &y, std::vector<double> &x) {
+	
+	double ybar = 0;
+	double xbar = 0;
+
+	double n = 0;
+
+	for (size_t i = 0; i < y.size(); i++)
+		if (x[i] != NULL) {
+			ybar += y[i];
+			xbar += x[i];
+			n++;
 		}
 
-		w0last = w0;
+	ybar /= n;
+	xbar /= n;
+	double xvar = 0;
+
+	for (size_t i = 0; i < x.size(); i++)
+		if (x[i] != NULL)
+			xvar += pow(x[i] - xbar, 2);
+
+	xvar /= (n);
+	double score = 0;
+	double dnom = 0;
+	double temp;
+
+	for (size_t i = 0; i < y.size(); i++)
+		if (x[i] != NULL) {
+			temp = y[i] - ybar;
+
+			score += temp * x[i];
+			dnom += pow(temp, 2) * xvar;
+		}
+	return pow(score, 2) / dnom;
+}
+
+/*
+Finds p-value for test statistic using a chi-squared distribution with one degree of freedom
+using chi-squared probability density function.
+
+@param statistic Test statistic.
+@return p-value.
+*/
+double chiSquareOneDOF(double statistic){
+	double z = statistic * 0.5;
+	double sc = 2 * sqrt(z) * exp(-z);
+
+	double sum = 1;
+	double prevSum = sum;
+	double nom = 1;
+	double dnom = 1;
+	double s = 0.5;
+
+	for (int i = 0; i < 200; i++)
+	{
+		nom *= z;
+		s++;
+		dnom *= s;
+		sum += nom / dnom;
+		if (prevSum == sum) break;
+		prevSum = sum;
 	}
+
+	double p = sum * sc;
+	if (isnan(p) || isinf(p) || p <= 1e-8)
+		return 1e-14;
+
+	p /= tgamma(0.5);
+
+	return 1 - p;
 }
 
 

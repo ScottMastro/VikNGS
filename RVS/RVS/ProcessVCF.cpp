@@ -127,21 +127,7 @@ std::vector<SNP> vcf_process(std::string vcfDir, std::string caseIDDir,
 
 	std::cout << "==========\n";
 
-	std::cout << "Chr\tLoc\tMAF\n";
-
 	//TODO: remove SNPs where MAF = NULL?
-
-	for (size_t i = 0; i < snps.size(); i++) {
-
-		if (snps[i].maf != NULL) {
-			std::cout << snps[i].chr;
-			std::cout << '\t';
-			std::cout << snps[i].loc;
-			std::cout << '\t';
-			std::cout << snps[i].maf;
-			std::cout << '\n';
-		}
-	}
 
 	return snps;
 }
@@ -159,7 +145,21 @@ int main() {
 	std::vector<bool> IDmap = getIDs(vcfDir, caseIDDir, 9);
 
 	std::vector<SNP> snps = vcf_process(vcfDir, caseIDDir, mafCut, common, IDmap);
-	RVSasy(snps, IDmap, true);
+	std::vector<double> pvals = RVSasy(snps, IDmap, true);
+
+	std::cout << "Chr\tLoc\tMAF\tp-value\n";
+	for (size_t i = 0; i < snps.size(); i++) {
+		if (snps[i].maf != NULL) {
+			std::cout << snps[i].chr;
+			std::cout << '\t';
+			std::cout << snps[i].loc;
+			std::cout << '\t';
+			std::cout << snps[i].maf;
+			std::cout << '\t';
+			std::cout << pvals[i];
+			std::cout << '\n';
+		}
+	}
 
 	//keep console open while debugging
 	//TODO: be sure to remove eventually!
