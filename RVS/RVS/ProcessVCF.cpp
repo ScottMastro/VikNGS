@@ -163,7 +163,7 @@ int main() {
 		}
 	}
 
-	RVSbtrap(snps, IDmap, true, 100);
+	RVSbtrap(snps, IDmap, false, 1000);
 
 
 	//keep console open while debugging

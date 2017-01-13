@@ -3,7 +3,8 @@
 
 #include <iostream>
 #include <vector>
-
+#include <random>
+#include <time.h>
 
 /*
 Calculates the robust variance of E(G | D). var(x) = E(x^2) - E(x)^2
@@ -130,41 +131,146 @@ std::vector<double> RVSasy(std::vector<SNP> &snps, std::vector<bool> &IDmap, boo
 	return pvals;
 }
 
-void RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rvs, int nboot) {
 
+double bstrapHelp1(SNP &snp, std::vector<bool> &IDmap, int nboot, double tobs) {
+	srand(time(NULL));
+
+	std::vector<double> x0;
+	std::vector<double> x1;
+	std::vector<double> counter0;
+	std::vector<double> counter1;
+
+	for (size_t i = 0; i < snp.EG.size(); i++) {
+		if (snp.EG[i] != NULL) {
+			if (IDmap[i]) {
+				x1.push_back(snp.EG[i] - snp.casemean);
+				counter1.push_back(0);
+			}
+			else {
+				x0.push_back(snp.EG[i] - snp.controlmean);
+				counter0.push_back(0);
+			}
+		}
+	}
+
+	double bootmean0;
+	double bootvar0;
+	double bootmean1;
+	double bootvar1;
+	double statistic;
+	double bootScoreCount = 1;
+	int ncase = int(snp.ncase);
+	int ncontrol = int(snp.ncontrol);
+
+	for (int k = 0; k < nboot; k++) {
+		bootmean0 = 0;
+		bootvar0 = 0;
+		bootmean1 = 0;
+		bootvar1 = 0;
+		//reset counters
+		for (int i = 0; i < ncontrol; i++)
+			counter0[i] = 0;
+		for (int i = 0; i < ncase; i++)
+			counter1[i] = 0;
+
+		//sample from observed values
+		for (int i = 0; i < ncontrol; i++)
+			counter0[rand() % ncontrol]++;
+		for (int i = 0; i < ncase; i++)
+			counter1[rand() % ncase]++;
+
+		//calculate means
+		for (int i = 0; i < ncontrol; i++)
+			bootmean0 += counter0[i] * x0[i];
+		for (int i = 0; i < ncase; i++)
+			bootmean1 += counter1[i] * x1[i];
+
+		bootmean0 /= snp.ncontrol;
+		bootmean1 /= snp.ncase;
+
+		//calculate variances
+		for (int i = 0; i < ncontrol; i++)
+			bootvar0 += counter0[i] * pow(x0[i] - bootmean0, 2);
+		for (int i = 0; i < ncase; i++)
+			bootvar1 += counter1[i] * pow(x1[i] - bootmean1, 2);
+
+		bootvar0 /= snp.ncontrol - 1;
+		bootvar1 /= snp.ncase - 1;
+
+		statistic = (bootmean1 - bootmean0) / sqrt(bootvar1 / snp.ncase + bootvar0 / snp.ncontrol);
+		if (abs(statistic) >= tobs)
+			bootScoreCount++;
+	}
+
+	return 	bootScoreCount / nboot;
+}
+
+double bstrapHelp2(SNP &snp, std::vector<bool> &IDmap, int nboot, double tobs) {
+	srand(time(NULL));
+
+	std::vector<double> x;
+	double bootScoreCount = 1;
+	double p = snp.ncase / snp.n;
+	double q = 1 - p;
+	double vs = p * q * snp.n * snp.var;
+	double statistic;
+	double casesum;
+	double controlsum;
+
+	double xindex;
+
+	for (size_t i = 0; i < snp.EG.size(); i++)
+		if (snp.EG[i] != NULL)
+			x.push_back(i);
+
+	for (int k = 0; k < nboot; k++) {
+		casesum = 0;
+		controlsum = 0;
+		xindex = 0;
+		std::random_shuffle(x.begin(), x.end());
+
+		for (size_t i = 0; i < snp.EG.size(); i++) {
+			if (snp.EG[i] != NULL) {
+				if (IDmap[i])
+					casesum += snp.EG[x[xindex]];
+				else
+					controlsum += snp.EG[x[xindex]];
+				xindex++;
+			}
+		}
+
+		statistic = pow(q * casesum - p * controlsum, 2) / vs;
+
+		if (abs(statistic) >= tobs)
+			bootScoreCount++;
+	}
+	return 	bootScoreCount / nboot;
+}
+
+double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rvs, int nboot) {
 	SNP snp = snps[0];
 
 	double maf = 0;
-	double casevar;
 	double p;
-
 	double s;
+	double tobs;
 
-
-	double tObs;
-
-
-	maf = snp.mean / 2;
-
-	if (maf < 0.05)
-		std::cout << "Warning: MAF of the SNP is" + std::to_string(maf) + ", try to group with other rare variants and use RVS_rare1.\n";
-	if (1 - maf < 0.05)
-		std::cout << "Warning: MAF of the SNP is" + std::to_string(1 - maf) + ", try to group with other rare variants and use RVS_rare1.\n";
-
-	casevar = calcRobustVar(snp.p);
-
+	//calculate observed score statistic
 	if (rvs)
-		tObs = (snp.casemean - snp.controlmean) / sqrt(casevar / snp.ncase + snp.controlvar / snp.ncontrol);
+		tobs = (snp.casemean - snp.controlmean) / 
+		sqrt(calcRobustVar(snp.p) / snp.ncase + snp.controlvar / snp.ncontrol);
 	else {
-		//calculate score test
 		p = snp.ncase / snp.n;
 		s = (1 - p) * snp.casemean * snp.ncase - p * snp.controlmean * snp.ncontrol;
-		tObs = pow(s, 2) / (p * (1 - p) * snp.n * snp.var);
+		tobs = pow(s, 2) / (p * (1 - p) * snp.n * snp.var);
 	}
-	
-	std::cout << tObs;
-	
-	return;
+	tobs = abs(tobs);
+
+	//bootstrap test
+	if (rvs)
+		return bstrapHelp1(snp, IDmap, nboot, tobs);
+	else
+		return bstrapHelp2(snp, IDmap, nboot, tobs);
 }
 
 

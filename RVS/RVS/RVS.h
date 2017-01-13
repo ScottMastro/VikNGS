@@ -67,7 +67,7 @@ double chiSquareOneDOF(double);
 //Tests.cpp
 void calcMeanVar(std::vector<bool> &, std::vector<SNP> &);
 std::vector<double> RVSasy(std::vector<SNP> &, std::vector<bool> &, bool );
-void RVSbtrap(std::vector<SNP> &, std::vector<bool> &, bool, int);
+double RVSbtrap(std::vector<SNP> &, std::vector<bool> &, bool, int);
 
 //========================================================
 // inline functions
