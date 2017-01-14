@@ -70,8 +70,13 @@ void calcMeanVar(std::vector<bool> &IDmap, std::vector<SNP> &snps) {
 
 				if (!IDmap[i])
 					controlvar += pow((eg - controlmean), 2);
-				else
+				else {
 					casevar += pow((eg - casemean), 2);
+					if (j == 0) {
+						std::cout << casevar;
+						std::cout << '\n';
+					}
+				}
 			}
 		}
 
@@ -85,7 +90,7 @@ void calcMeanVar(std::vector<bool> &IDmap, std::vector<SNP> &snps) {
 		snps[j].controlvar = controlvar;
 		snps[j].controlmean = controlmean;
 		snps[j].ncontrol = ncontrol;
-		snps[j].casevar = controlvar;
+		snps[j].casevar = casevar;
 		snps[j].casemean = casemean;
 		snps[j].ncase = ncase;
 	}
@@ -247,7 +252,7 @@ double bstrapHelp2(SNP &snp, std::vector<bool> &IDmap, int nboot, double tobs) {
 	return 	bootScoreCount / nboot;
 }
 
-double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rvs, int nboot) {
+double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool rvs) {
 	SNP snp = snps[0];
 
 	double maf = 0;
@@ -273,8 +278,112 @@ double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, bool rvs, int 
 		return bstrapHelp2(snp, IDmap, nboot, tobs);
 }
 
+void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool RVS, int njoint, int hom, int multiplier) {
+	SNP snp = snps[0];
+	double meanY;
+	double S = 0;
+	typedef std::vector<std::vector<double>> Matrix;
+	typedef std::vector<double> Row;
+	double sum;
+	double n;
+
+	Matrix sigma;
+
+	for (size_t i = 0; i < njoint; i++)
+	{
+		Row r(njoint);
+		for (size_t j = 0; j < njoint; j++)
+			r[j] = NULL;
+
+		sigma.push_back(r);
+	}
+
+	//calculate score vector
+	for (int h = 0; h < njoint; h++) {
+
+		snp = snps[h];
+
+		meanY = snp.ncase / snp.n;
+		S += snp.casemean * snp.ncase * (1 - meanY) - meanY * snp.controlmean * snp.ncontrol;
+		sigma[h][h] = sqrt(calcRobustVar(snp.p));
+	}
+
+
+	for (size_t i = 0; i < njoint; i++) {
+		for (size_t j = 0; j < njoint; j++) {
+			if (i <= j) {
+				sum = 0;
+				n = 0;
+				for (size_t k = 0; k < IDmap.size(); k++) {
+					if (IDmap[k] && snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
+						n++;
+						sum += (snps[i].EG[k] - snps[i].casemean) * (snps[j].EG[k] - snps[j].casemean);
+					}
+				}
+
+				sum /= (n-1) * sqrt(snps[i].casevar * snps[j].casevar );
+				sigma[i][j] = sum;
+				sigma[j][i] = sum;
+			}
+		}
+	}
+
+	std::cout << '\n';
+
+	for (size_t i = 0; i < njoint; i++) {
+		for (size_t j = 0; j < njoint; j++) {
+			std::cout << sigma[i][j];
+			std::cout << '\t';
+
+		}
+		std::cout << '\n';
+
+	}
+}
 
 /*
+# RVS analysis with rare variants
+# Robust Variance Estimate
+# Get p-values from RVS with CAST and C-alpha (Resampling: Bootstrap, Variance Estimate: Robust)
+# paper mentioned the permutation does not work when have external controls, so use centered X to bootrstap
+#' It calls functions \code{calc_ScoreV},\code{calc_ScoreV_RVS},\code{calc_ScoreV_likely},\code{test_CAST}, \code{test_Calpha},\code{sample_bootstrap}
+# Input values matrix of expected values of genotypes given sequence data
+#' @param Y - phenotype value, 1-cases and 0-controls
+#' @param X - matrix of conditional expected values, it has dimensions n by J, J - number of variants, n - sample size
+#' @param nboot - number of bootstrap
+#' @param njoint - number of SNPs grouping together for one test, default is 5
+#' @param P - genotype frequency for J variants P(G=0), P(G=1) and P(G=2), J by 3 matrix
+#' @param RVS, logic variable to indicate the estimation of variance of the score statistic.
+#' @return two p-values for CAST and C-alpha
+#' @export
+RVS_rare= function(Y,X,P,njoint=5,nboot,RVS='TRUE',hom=1,multiplier=1){
+if(!RVS %in% c('TRUE','True','true','T','t','FALSE','False','false','F','f')) {
+cat('Wrong input for option RVS in RVS_rare, should be True or False.\n')
+return(NULL)
+}
+
+nsnp=nrow(P)
+if(nsnp%%njoint!=0) {nloop=(nsnp-nsnp%%njoint)/njoint ## the last couple of snps(<5) combined to the last group
+}else {nloop=nsnp/njoint}
+
+p.RVS.rare=NULL
+for(i in 1:nloop){
+t1<-(i-1)*njoint+1;
+if(i < nloop) {t2<-i*njoint;
+}else{t2 <- nsnp}
+Xsub=X[,t1:t2]
+
+tt=RVS_rare1(Y,X[,t1:t2],P[t1:t2,],njoint,nboot,RVS,hom=hom,multiplier=multiplier,snp_loop=i)
+p.RVS.rare<-rbind(p.RVS.rare,tt)
+}
+
+row.names(p.RVS.rare)=paste0('loop',1:nloop)
+p.RVS.rare=data.frame(p.RVS.rare)
+colnames(p.RVS.rare)=c('p.CAST','p.Calpha')
+return (p.RVS.rare)
+}
+
+
 
 #' Function to calculate the score test for given expected genotype probability for case and controls seperately (M1, M2)
 #'

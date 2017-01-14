@@ -105,6 +105,11 @@ void getExpMAF(std::vector<SNP> &snps, double mafCut, bool common) {
 	std::cout << " out of ";
 	std::cout << snps.size();
 	std::cout << " variants satisfy the MAF condition provided\n";
+	
+	//remove SNPs that failed MAF condition
+	for (size_t i = 0; i < snps.size(); i++) 
+		if(snps[i].maf == NULL)
+			snps.erase(snps.begin() + i);
 }
 
 /*
@@ -125,9 +130,10 @@ std::vector<SNP> vcf_process(std::string vcfDir, std::string caseIDDir,
 
 	getExpMAF(snps, mafCut, true);
 
-	std::cout << "==========\n";
+	if (snps.size() == 0)
+		std::cout << "No SNPs left after applying MAF condition\n";
 
-	//TODO: remove SNPs where MAF = NULL?
+	std::cout << "==========\n";
 
 	return snps;
 }
@@ -163,8 +169,9 @@ int main() {
 		}
 	}
 
-	RVSbtrap(snps, IDmap, false, 1000);
+	//RVSbtrap(snps, IDmap, true, 1000);
 
+	RVSrare(snps, IDmap, 1000);
 
 	//keep console open while debugging
 	//TODO: be sure to remove eventually!
