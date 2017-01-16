@@ -278,14 +278,35 @@ double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, boo
 		return bstrapHelp2(snp, IDmap, nboot, tobs);
 }
 
-void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool RVS, int njoint, int hom, int multiplier) {
+
+//TODO
+//takes matrix
+//finds columns which are all identical (except NULLs)
+//picks first row without *any* NULL or random row  without *any* NULL (depends on hom)
+//in columns with identical rows, takes above^^ row and if it is 0, sets to 10e-15
+//if not zero, either divides cell by 2 or multiplies by 2 and takes min of 2 and itself
+//eg.
+//[, 1][, 2][, 3]			[, 1][, 2][, 3]
+//[1, ]	1	1	0			[1, ]	NA	1	0.00E+00
+//[2, ]	1	1	0			[2, ]	2	1	1.00E-15
+//[3, ]	1	2	0			[3, ]	1	2	0.00E+00
+//[4, ]	1	3	0	->		[4, ]	1	3	0.00E+00
+//[5, ]	1	1	0			[5, ]	1	1	0.00E+00
+//[6, ]	1	1	0			[6, ]	1	1	0.00E+00
+//[7, ]	1	4	0			[7, ]	1	4	0.00E+00
+//[8, ]	1	5	0			[8, ]	1	5	0.00E+00
+//[9, ]	1	3	0			[9, ]	1	3	0.00E+00
+//[10,]	1	2	0			[10, ]	1	2	0.00E+00
+//void checkHomMatrix()
+	
+
+
+void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool rvs, int njoint, int hom, int multiplier) {
 	SNP snp = snps[0];
 	double meanY;
 	double S = 0;
 	typedef std::vector<std::vector<double>> Matrix;
 	typedef std::vector<double> Row;
-	double sum;
-	double n;
 
 	Matrix sigma;
 
@@ -308,25 +329,142 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool R
 		sigma[h][h] = sqrt(calcRobustVar(snp.p));
 	}
 
+	//TODO: check_hom_matrix
 
-	for (size_t i = 0; i < njoint; i++) {
-		for (size_t j = 0; j < njoint; j++) {
-			if (i <= j) {
-				sum = 0;
-				n = 0;
-				for (size_t k = 0; k < IDmap.size(); k++) {
-					if (IDmap[k] && snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
-						n++;
-						sum += (snps[i].EG[k] - snps[i].casemean) * (snps[j].EG[k] - snps[j].casemean);
+	if (!rvs) {
+		double sum;
+		double n;
+		double vari;
+		double varj;
+		double meani;
+		double meanj;
+
+		//calculate correlation matrix
+		for (size_t i = 0; i < njoint; i++) {
+			for (size_t j = 0; j < njoint; j++) {
+				if (i <= j) {
+					sum = 0;
+					n = 0;
+					vari = 0;
+					varj = 0;
+					meani = 0;
+					meanj = 0;
+
+					for (size_t k = 0; k < IDmap.size(); k++) {
+						if (IDmap[k] && snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
+							n++;
+							meani += snps[i].EG[k];
+							meanj += snps[j].EG[k];
+						}
 					}
-				}
 
-				sum /= (n-1) * sqrt(snps[i].casevar * snps[j].casevar );
-				sigma[i][j] = sum;
-				sigma[j][i] = sum;
+					meani /= n;
+					meanj /= n;
+
+					for (size_t k = 0; k < IDmap.size(); k++) {
+						if (IDmap[k] && snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
+							vari += pow((snps[i].EG[k] - meani), 2);
+							varj += pow((snps[j].EG[k] - meanj), 2);
+							sum += (snps[i].EG[k] - meani) * (snps[j].EG[k] - meanj);
+						}
+					}
+
+					vari /= n - 1;
+					varj /= n - 1;
+					sum /= (n - 1) * sqrt(vari * varj);
+					sigma[i][j] = sum;
+					sigma[j][i] = sum;
+				}
+			}
+		}
+
+		//TODO: check for NULLs in sigma?
+		//TODO: check_hom_matrix
+	}
+	else {
+		double sumcase;
+		double sumcontrol;
+		double ncase;
+		double ncontrol;
+		double meancontroli;
+		double meancontrolj;
+		double meancasei;
+		double meancasej;
+		double totalncase;
+		double totalncontrol;
+		double vs;
+
+		//calculate covariance matrix
+		totalncase = 0;
+		for (size_t k = 0; k < IDmap.size(); k++)
+			if (IDmap[k])
+				totalncase++;
+		totalncontrol = IDmap.size() - totalncase;
+		
+		for (size_t i = 0; i < njoint; i++) {
+			for (size_t j = 0; j < njoint; j++) {
+				if (i <= j) {
+					ncase = 0;
+					ncontrol = 0;
+					sumcase = 0;
+					sumcontrol = 0;
+					meancasei = 0;
+					meancasej = 0;
+					meancontroli = 0;
+					meancontrolj = 0;
+					vs = 0;
+
+					for (size_t k = 0; k < IDmap.size(); k++) {
+						if (snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
+							if (IDmap[k]) {
+								ncase++;
+								meancasei += snps[i].EG[k];
+								meancasej += snps[j].EG[k];
+							}
+							else {
+								ncontrol++;
+								meancontroli += snps[i].EG[k];
+								meancontrolj += snps[j].EG[k];
+							}
+						}
+					}
+
+					meancasei /= ncase;
+					meancasej /= ncase;
+					meancontroli /= ncontrol;
+					meancontrolj /= ncontrol;
+
+					for (size_t k = 0; k < IDmap.size(); k++) {
+						if (snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
+							if (IDmap[k])
+								sumcase += (snps[i].EG[k] - meancasei) * (snps[j].EG[k] - meancasej);
+							else
+								sumcontrol += (snps[i].EG[k] - meancontroli) * (snps[j].EG[k] - meancontrolj);
+						}
+					}
+
+					sumcase /= ncase - 1;
+					sumcontrol /= ncontrol - 1;
+					sumcase = totalncontrol / totalncase * sumcase * (totalncase - 1) +
+						totalncase / totalncontrol * sumcontrol * (totalncontrol - 1);
+
+					vs = sqrt(ncase * ncontrol) / (ncase + ncontrol);
+					std::cout << vs;
+					std::cout << '\n';
+
+					sigma[i][j] = sumcase;
+					sigma[j][i] = sumcase;
+				}
 			}
 		}
 	}
+
+
+
+
+
+
+
 
 	std::cout << '\n';
 
@@ -340,6 +478,7 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool R
 
 	}
 }
+
 
 /*
 # RVS analysis with rare variants
