@@ -303,12 +303,32 @@ double RVSbtrap(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, boo
 
 void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool rvs, int njoint, int hom, int multiplier) {
 	SNP snp = snps[0];
-	double meanY;
+	double temp;
 	double S = 0;
 	typedef std::vector<std::vector<double>> Matrix;
 	typedef std::vector<double> Row;
-
 	Matrix sigma;
+	
+	//calculate once
+	double totalncase = 0;
+	double totalncontrol = 0;
+	double meany = 0;
+	double vary = 0;
+
+	for (size_t k = 0; k < IDmap.size(); k++)
+		if (IDmap[k])
+			totalncase++;
+	totalncontrol = IDmap.size() - totalncase;
+	meany = totalncase / IDmap.size();
+
+	vary += totalncase * pow(1 - meany, 2);
+	vary += totalncontrol * pow(meany, 2);
+	vary /= (totalncase + totalncontrol - 1);
+
+	double p = totalncontrol / totalncase;
+	double q = 1 / p;
+
+	//========== for loop here
 
 	for (size_t i = 0; i < njoint; i++)
 	{
@@ -321,28 +341,31 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 
 	//calculate score vector
 	for (int h = 0; h < njoint; h++) {
-
 		snp = snps[h];
-
-		meanY = snp.ncase / snp.n;
-		S += snp.casemean * snp.ncase * (1 - meanY) - meanY * snp.controlmean * snp.ncontrol;
-		sigma[h][h] = sqrt(calcRobustVar(snp.p));
+		temp = snp.ncase / snp.n;
+		S += snp.casemean * snp.ncase * (1 - temp) - temp * snp.controlmean * snp.ncontrol;
 	}
 
 	//TODO: check_hom_matrix
 
-	if (!rvs) {
+	if (rvs) {
 		double sum;
 		double n;
 		double vari;
 		double varj;
 		double meani;
 		double meanj;
-
+		std::vector<double> v;
+		
 		//calculate correlation matrix
 		for (size_t i = 0; i < njoint; i++) {
 			for (size_t j = 0; j < njoint; j++) {
-				if (i <= j) {
+				if (i == j) {
+					sigma[i][j] = 1;
+					sigma[j][i] = 1;
+					v.push_back(sqrt(calcRobustVar(snps[i].p)));
+				}
+				if (i < j) {
 					sum = 0;
 					n = 0;
 					vari = 0;
@@ -380,8 +403,18 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 
 		//TODO: check for NULLs in sigma?
 		//TODO: check_hom_matrix
+
+		for (size_t i = 0; i < njoint; i++)
+			for (size_t j = 0; j < njoint; j++)
+				sigma[i][j] *= p * v[i] * v[j] * totalncase;
+
+
+
+
 	}
 	else {
+		//TODO: check_hom_matrix?
+
 		double sumcase;
 		double sumcontrol;
 		double ncase;
@@ -390,17 +423,10 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 		double meancontrolj;
 		double meancasei;
 		double meancasej;
-		double totalncase;
-		double totalncontrol;
-		double vs;
 
-		//calculate covariance matrix
-		totalncase = 0;
-		for (size_t k = 0; k < IDmap.size(); k++)
-			if (IDmap[k])
-				totalncase++;
-		totalncontrol = IDmap.size() - totalncase;
-		
+		std::vector<double> vs;
+
+		//calculate covariance matrix		
 		for (size_t i = 0; i < njoint; i++) {
 			for (size_t j = 0; j < njoint; j++) {
 				if (i <= j) {
@@ -412,7 +438,6 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 					meancasej = 0;
 					meancontroli = 0;
 					meancontrolj = 0;
-					vs = 0;
 
 					for (size_t k = 0; k < IDmap.size(); k++) {
 						if (snps[i].EG[k] != NULL && snps[j].EG[k] != NULL) {
@@ -448,15 +473,19 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 					sumcase = totalncontrol / totalncase * sumcase * (totalncase - 1) +
 						totalncase / totalncontrol * sumcontrol * (totalncontrol - 1);
 
-					vs = sqrt(ncase * ncontrol) / (ncase + ncontrol);
-					std::cout << vs;
-					std::cout << '\n';
-
 					sigma[i][j] = sumcase;
 					sigma[j][i] = sumcase;
+
+					if (i == j) 
+						vs.push_back(sqrt(ncase*ncontrol) / (ncase + ncontrol));
 				}
 			}
 		}
+
+		for (size_t i = 0; i < njoint; i++) 
+			for (size_t j = 0; j < njoint; j++) 
+				sigma[i][j] *= vs[i] * vs[j];
+			
 	}
 
 
