@@ -5,5 +5,6 @@ c:\users\scott\desktop\robust-variance-score\rvs\rvs\tests.cpp(214): warning C42
 c:\users\scott\desktop\robust-variance-score\rvs\rvs\tests.cpp(229): warning C4244: 'argument': conversion from 'std::size_t' to 'const double', possible loss of data
 c:\users\scott\desktop\robust-variance-score\rvs\rvs\tests.cpp(240): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
 c:\users\scott\desktop\robust-variance-score\rvs\rvs\tests.cpp(242): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\rvs\tests.cpp(337): warning C4101: 'SQobs': unreferenced local variable
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\RVS\x64\Debug\RVS.pdb (Full PDB)
