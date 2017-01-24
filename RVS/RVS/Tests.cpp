@@ -72,10 +72,6 @@ void calcMeanVar(std::vector<bool> &IDmap, std::vector<SNP> &snps) {
 					controlvar += pow((eg - controlmean), 2);
 				else {
 					casevar += pow((eg - casemean), 2);
-					if (j == 0) {
-						std::cout << casevar;
-						std::cout << '\n';
-					}
 				}
 			}
 		}
@@ -322,6 +318,8 @@ double pnorm(double x)
 	return 0.5*(1.0 + sign*y);
 }
 
+#include "Eigen/Dense"
+using Eigen::MatrixXd;
 
 void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool rvs, int njoint, int hom, int multiplier) {
 	SNP snp = snps[0];
@@ -330,7 +328,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 	double s2 = 0;
 	typedef std::vector<std::vector<double>> Matrix;
 	typedef std::vector<double> Row;
-	Matrix sigma;
+	MatrixXd sigma(njoint, njoint);
+	std::cout << sigma << std::endl;
 
 	double sum;
 	double SLobs;
@@ -357,15 +356,6 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 
 	//========== for loop here
 
-	for (size_t i = 0; i < njoint; i++)
-	{
-		Row r(njoint);
-		for (size_t j = 0; j < njoint; j++)
-			r[j] = NULL;
-
-		sigma.push_back(r);
-	}
-
 	//calculate score vector
 	for (int h = 0; h < njoint; h++) {
 		snp = snps[h];
@@ -389,8 +379,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 		for (size_t i = 0; i < njoint; i++) {
 			for (size_t j = 0; j < njoint; j++) {
 				if (i == j) {
-					sigma[i][j] = 1;
-					sigma[j][i] = 1;
+					sigma(i, j) = 1;
+					sigma(j, i) = 1;
 					v.push_back(sqrt(calcRobustVar(snps[i].p)));
 				}
 				else if (i < j) {
@@ -423,8 +413,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 					vari /= n - 1;
 					varj /= n - 1;
 					sum /= (n - 1) * sqrt(vari * varj);
-					sigma[i][j] = sum;
-					sigma[j][i] = sum;
+					sigma(i, j) = sum;
+					sigma(j, i) = sum;
 				}
 			}
 		}
@@ -435,8 +425,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 		for (size_t i = 0; i < njoint; i++){
 			for (size_t j = 0; j < njoint; j++) {
 				if (i <= j) {
-					sigma[i][j] *= v[i] * v[j] * totalncase * p;
-					sigma[j][i] = sigma[i][j];
+					sigma(i, j) *= v[i] * v[j] * totalncase * p;
+					sigma(j, i) = sigma(i, j);
 				}
 			}
 		}
@@ -449,8 +439,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 						if (!IDmap[k] && snps[i].EG[k] != NULL)
 							sum += pow(snps[i].EG[k] - snps[i].controlmean, 2);
 
-					sigma[i][i] += q * sum;
-					sigma[i][i] *= vary;
+					sigma(i, i) += q * sum;
+					sigma(i, i) *= vary;
 				}
 				else if (i < j) {
 					sum = 0;
@@ -458,9 +448,9 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 						if (!IDmap[k] && snps[i].EG[k] != NULL && snps[j].EG[k] != NULL)
 							sum += (snps[i].EG[k] - snps[i].controlmean) * (snps[j].EG[k] - snps[j].controlmean);
 
-					sigma[i][j] += q * sum;
-					sigma[i][j] *= vary;
-					sigma[j][i] = sigma[i][j];
+					sigma(i, j) += q * sum;
+					sigma(i, j) *= vary;
+					sigma(j, i) = sigma(i, j);
 				}
 			}
 		}
@@ -526,8 +516,8 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 					sumcase = totalncontrol / totalncase * sumcase * (totalncase - 1) +
 						totalncase / totalncontrol * sumcontrol * (totalncontrol - 1);
 
-					sigma[i][j] = sumcase;
-					sigma[j][i] = sumcase;
+					sigma(i, j) = sumcase;
+					sigma(j, i) = sumcase;
 
 					if (i == j) 
 						vs.push_back(sqrt(ncase*ncontrol) / (ncase + ncontrol));
@@ -537,30 +527,33 @@ void RVSrare(std::vector<SNP> &snps, std::vector<bool> &IDmap, int nboot, bool r
 
 		for (size_t i = 0; i < njoint; i++) 
 			for (size_t j = 0; j < njoint; j++) 
-				sigma[i][j] *= vs[i] * vs[j];
+				sigma(i, j) *= vs[i] * vs[j];
 			
 	}
 
 	sum = 0;
 	for (size_t i = 0; i < njoint; i++)
 		for (size_t j = 0; j < njoint; j++)
-			sum += sigma[i][j];
+			sum += sigma(i, j);
 
-	SLobs = 2 * (s / sqrt(sum));
-
+	SLobs = 2 * pnorm(s / sqrt(sum));
+	//SQobs
 	std::cout << SLobs;
 
 	std::cout << '\n';
 
 	for (size_t i = 0; i < njoint; i++) {
 		for (size_t j = 0; j < njoint; j++) {
-			std::cout << sigma[i][j];
+			std::cout << sigma(i, j);
 			std::cout << '\t';
 
 		}
 		std::cout << '\n';
 
 	}
+
+	std::cout << sigma.eigenvalues();
+
 }
 
 
