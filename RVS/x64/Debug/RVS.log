@@ -1,0 +1,31 @@
+﻿  stdafx.cpp
+  HelperVCF.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(112): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\helpervcf.cpp(73): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\helpervcf.cpp(266): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\helpervcf.cpp(267): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\helpervcf.cpp(278): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Statistics.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(112): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(38): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(43): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(44): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(89): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(90): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(91): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(92): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  Tests.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(112): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(137): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(210): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(225): warning C4244: 'argument': conversion from 'std::size_t' to 'const double', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(236): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(238): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(336): warning C4101: 'SQobs': unreferenced local variable
+  ProcessVCF.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(112): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
+  MemoryMapped.cpp
+  Generating Code...
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
