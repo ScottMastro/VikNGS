@@ -139,6 +139,7 @@ std::vector<SNP> vcf_process(std::string vcfDir, std::string caseIDDir,
 }
 
 int main() {
+
 	//TODO: take as input from command line
 	//---------------------------------------
 	bool common = true;
@@ -152,8 +153,7 @@ int main() {
 	std::vector<SNP> snps = vcf_process(vcfDir, caseIDDir, mafCut, common, IDmap);
 
 	calcMeanVar(IDmap, snps);
-	std::vector<double> pvals = RVSasy(snps, IDmap, false);
-	//RVSbtrap(snps, IDmap, true, 1000);
+	std::vector<double> pvals = RVSasy(snps, IDmap, true);
 
 	std::cout << "Chr\tLoc\tMAF\tp-value\n";
 	for (size_t i = 0; i < snps.size(); i++) {
@@ -169,6 +169,7 @@ int main() {
 		}
 	}
 
+	//RVSbtrap(snps, IDmap, true, 1000);
 
 	RVSrare(snps, IDmap, 1000);
 
