@@ -1,12 +1,4 @@
-﻿  Tests.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(115): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(129): warning C4477: 'printf' : format string '%s' requires an argument of type 'char *', but variadic argument 1 has type 'std::string'
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(139): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(212): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(227): warning C4244: 'argument': conversion from 'std::size_t' to 'const double', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(238): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(240): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(640): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\tests.cpp(645): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+﻿  RareTest.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(111): warning C4244: 'return': conversion from '__int64' to 'int', possible loss of data
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)

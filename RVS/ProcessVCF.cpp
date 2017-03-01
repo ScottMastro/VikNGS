@@ -271,8 +271,32 @@ int main() {
 		}
 	}
 
-	RVSrare(snps, IDmap, 10000);
+	auto t = startTime();
 
+	pvals = RVSbtrap(snps, IDmap, 1000000, false, true);
+	endTime(t, "btrp=1000000");
+
+
+	/*
+	for (size_t i = 0; i < snps.size(); i += 5) {
+		std::vector<SNP> newVec;
+		std::vector<bool> newMap;
+
+		for (size_t j = 0; j <= 4; j++) {
+			newVec.push_back(snps[i+j]);
+			newMap.push_back(IDmap[i + j]);
+
+		}
+
+		std::cout << newVec[0].loc;
+		std::cout << "\n";
+
+		RVSrare(newVec, newMap, 100000);
+	}
+
+	*/
+
+	std::cout << "done...>";
 
 	//keep console open while debugging
 	//TODO: be sure to remove eventually!
