@@ -1,6 +1,6 @@
-﻿  CommonTest.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(170): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(321): warning C4101: 'k': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(321): warning C4101: 'j': unreferenced local variable
+﻿  Statistics.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(135): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(183): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(87): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
