@@ -2,5 +2,23 @@
 c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(135): warning C4129: '.': unrecognized character escape sequence
 c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(183): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
 c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(87): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  RareTest.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(135): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(183): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(79): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(136): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(182): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(260): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(327): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  HelperVCF.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(135): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(183): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\helpervcf.cpp(335): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+  CommonTest.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(135): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(183): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(94): warning C4101: 'k': unreferenced local variable
+c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(154): warning C4101: 'k': unreferenced local variable
+  Generating Code...
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
