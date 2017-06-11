@@ -1,10 +1,2 @@
-﻿  Statistics.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(199): warning C4129: '.': unrecognized character escape sequence
-c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(246): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(71): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(81): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(112): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(164): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(166): warning C4018: '<': signed/unsigned mismatch
-  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
