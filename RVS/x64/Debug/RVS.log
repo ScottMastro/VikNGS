@@ -1,2 +1,14 @@
-﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+﻿  Statistics.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(202): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(249): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(72): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'double', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(109): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(165): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(166): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(175): warning C4018: '<': signed/unsigned mismatch
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
