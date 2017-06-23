@@ -1,14 +1,75 @@
-﻿  Statistics.cpp
+﻿  RareTest.cpp
 c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(202): warning C4129: '.': unrecognized character escape sequence
 c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(249): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(72): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'double', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\testgroup.h(46): warning C4244: 'return': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
           with
           [
               Derived=Eigen::Matrix<double,-1,1,0,-1,1>
           ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(109): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(165): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(166): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(175): warning C4018: '<': signed/unsigned mismatch
-  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
-  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
+c:\users\scott\desktop\robust-variance-score\rvs\testgroup.h(47): warning C4244: 'return': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\robust-variance-score\rvs\testset.h(27): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\testset.h(31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\multitestset.h(17): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(70): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(101): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(123): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(172): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(174): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(156): warning C4101: 'j': unreferenced local variable
+  MultiTestSet.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(202): warning C4129: '.': unrecognized character escape sequence
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(249): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\testgroup.h(46): warning C4244: 'return': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\robust-variance-score\rvs\testgroup.h(47): warning C4244: 'return': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\robust-variance-score\rvs\testset.h(27): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\testset.h(31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\multitestset.h(17): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\multitestset.cpp(65): error C2679: binary '=': no operator found which takes a right-hand operand of type 'void' (or there is no acceptable conversion)
+  c:\users\scott\desktop\robust-variance-score\rvs\eigen\src\core\block.h(111): note: could be 'Eigen::Block<Derived,-1,1,true> &Eigen::Block<Derived,-1,1,true>::operator =(const Eigen::Block<Derived,-1,1,true> &)'
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  c:\users\scott\desktop\robust-variance-score\rvs\eigen\src\core\block.h(341): note: or       'Eigen::internal::BlockImpl_dense<XprType,-1,1,true,true> &Eigen::internal::BlockImpl_dense<XprType,-1,1,true,true>::operator =(const Eigen::internal::BlockImpl_dense<XprType,-1,1,true,true> &)'
+          with
+          [
+              XprType=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  c:\users\scott\desktop\robust-variance-score\rvs\eigen\src\core\mapbase.h(284): note: or       'Eigen::Block<Derived,-1,1,true> &Eigen::MapBase<Eigen::Block<Derived,-1,1,true>,1>::operator =(const Eigen::MapBase<Eigen::Block<Derived,-1,1,true>,1> &)'
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  c:\users\scott\desktop\robust-variance-score\rvs\eigen\src\core\matrixbase.h(139): note: or       'Eigen::Block<Derived,-1,1,true> &Eigen::MatrixBase<Eigen::Block<Derived,-1,1,true>>::operator =(const Eigen::MatrixBase<Eigen::Block<Derived,-1,1,true>> &)'
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  c:\users\scott\desktop\robust-variance-score\rvs\eigen\src\core\block.h(161): note: or       'Eigen::BlockImpl<XprType,-1,1,true,Eigen::internal::traits<Derived>::StorageKind> &Eigen::BlockImpl<XprType,-1,1,true,Eigen::internal::traits<Derived>::StorageKind>::operator =(const Eigen::BlockImpl<XprType,-1,1,true,Eigen::internal::traits<Derived>::StorageKind> &)'
+          with
+          [
+              XprType=Eigen::Matrix<double,-1,-1,0,-1,-1>,
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  c:\users\scott\desktop\robust-variance-score\rvs\multitestset.cpp(65): note: while trying to match the argument list '(Eigen::Block<Derived,-1,1,true>, void)'
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+  Generating Code...
