@@ -112,8 +112,8 @@ double TestSet::getScore() {
 double TestSet::getBootstrapScore() {
 	double s = 0;
 
-	for (size_t i = 0; i < length(); i++)
-		s += get(i).bootstrapScore();
+//	for (size_t i = 0; i < length(); i++)
+//		s += get(i).bootstrapScore();
 
 	return s;
 
