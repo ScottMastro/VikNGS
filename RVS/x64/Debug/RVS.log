@@ -1,1 +1,7 @@
-﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\RVS\x64\Debug\RVS.exe
+﻿  VariantFilter.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\rvs.h(216): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\variantfilter.cpp(15): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\variantfilter.cpp(17): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\variantfilter.cpp(33): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
