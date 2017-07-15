@@ -1,98 +1,17 @@
-﻿  CommonTest.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(56): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\commontest.cpp(67): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+﻿  RareTest.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(104): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(115): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
           with
           [
               Derived=Eigen::Matrix<double,-1,1,0,-1,1>
           ]
-  Generating Code...
-  Compiling...
-  Statistics.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(42): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(225): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
           with
           [
               Derived=Eigen::Matrix<double,-1,1,0,-1,1>
           ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(43): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(63): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(64): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(89): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(90): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(88): warning C4101: 'k': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(88): warning C4101: 'j': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(88): warning C4101: 'i': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(150): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(151): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(195): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(196): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(276): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(330): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(331): warning C4018: '<': signed/unsigned mismatch
-c:\users\scott\desktop\robust-variance-score\rvs\statistics.cpp(340): warning C4018: '<': signed/unsigned mismatch
-  SimulationHelper.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulationhelper.cpp(39): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulationhelper.cpp(64): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulationhelper.cpp(89): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulationhelper.cpp(111): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
-          ]
-  Simulation.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(34): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  RareTest.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(107): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(118): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(228): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
-          with
-          [
-              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
-          ]
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(237): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(288): warning C4101: 'l': unreferenced local variable
-  BEDParser.cpp
-  Main.cpp
-  CompQuadForm.cpp
-  Generating Code...
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(234): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(233): warning C4101: 'h': unreferenced local variable
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(318): warning C4101: 'l': unreferenced local variable
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
