@@ -1,17 +1,18 @@
 ﻿  RareTest.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(104): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(115): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(132): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(143): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
           with
           [
               Derived=Eigen::Matrix<double,-1,1,0,-1,1>
           ]
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(225): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(167): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(216): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
           with
           [
               Derived=Eigen::Matrix<double,-1,1,0,-1,1>
           ]
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(234): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(233): warning C4101: 'h': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(318): warning C4101: 'l': unreferenced local variable
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(228): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(227): warning C4101: 'j': unreferenced local variable
+c:\users\scott\desktop\robust-variance-score\rvs\raretest.cpp(267): warning C4101: 'l': unreferenced local variable
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
