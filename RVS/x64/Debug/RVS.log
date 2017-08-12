@@ -1,10 +1,2 @@
-﻿  Simulation.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(16): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(17): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(19): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(26): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(6): warning C4101: 'j': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(6): warning C4101: 'i': unreferenced local variable
-c:\users\scott\desktop\robust-variance-score\rvs\simulation\simulation.cpp(56): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
