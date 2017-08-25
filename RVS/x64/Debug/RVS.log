@@ -1,4 +1,10 @@
 ﻿  VCFParser.cpp
-c:\users\scott\desktop\robust-variance-score\rvs\parser\inputparser.h(100): warning C4244: '=': conversion from 'uint64_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\parser\inputparser.h(99): warning C4244: '=': conversion from 'uint64_t' to 'int', possible loss of data
+  InputParser.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\parser\inputparser.h(99): warning C4244: '=': conversion from 'uint64_t' to 'int', possible loss of data
+  BEDParser.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\parser\inputparser.h(99): warning C4244: '=': conversion from 'uint64_t' to 'int', possible loss of data
+c:\users\scott\desktop\robust-variance-score\rvs\parser\bedparser.cpp(19): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
