@@ -1,2 +1,4 @@
-﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
+﻿  VCFParser.cpp
+c:\users\scott\desktop\robust-variance-score\rvs\parser\inputparser.h(97): warning C4244: '=': conversion from 'uint64_t' to 'int', possible loss of data
+  RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.exe
   RVS.vcxproj -> C:\Users\Scott\Desktop\Robust-Variance-Score\x64\Debug\RVS.pdb (Full PDB)
