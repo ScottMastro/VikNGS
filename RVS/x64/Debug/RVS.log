@@ -1,1 +1,142 @@
-﻿  RVS.vcxproj -> C:\Users\Scott\Desktop\RVS\x64\Debug\RVS.exe
+﻿  CommonTest.cpp
+c:\users\scott\desktop\rvs\rvs\test\commontestobject.h(81): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\test\commontestobject.h(92): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\rvs\rvs\test\commontest.cpp(145): warning C4930: 'CommonTestObject testObject(void)': prototyped function not called (was a variable definition intended?)
+  StatisticsHelper.cpp
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(10): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(11): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(9): warning C4101: 'k': unreferenced local variable
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(9): warning C4101: 'j': unreferenced local variable
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(9): warning C4101: 'i': unreferenced local variable
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(63): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(64): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(108): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(109): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\statisticshelper.cpp(190): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  RequestBuilder.cpp
+  RVS.cpp
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(24): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(28): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(37): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(46): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(47): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(54): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(65): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(79): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(80): warning C4018: '<': signed/unsigned mismatch
+c:\users\scott\desktop\rvs\rvs\rvs.cpp(83): warning C4018: '<': signed/unsigned mismatch
+  VCFParserUtils.cpp
+  VCFParser.cpp
+  VariantFilterUtils.cpp
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(17): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(19): warning C4244: 'argument': conversion from 'double' to 'unsigned __int64', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(38): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(50): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(58): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(69): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(77): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(90): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(102): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(123): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(140): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(157): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilterutils.cpp(183): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  Generating Code...
+  Compiling...
+  RareTestObject.cpp
+c:\users\scott\desktop\rvs\rvs\test\raretestobject.h(106): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\test\raretestobject.cpp(72): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\rvs\rvs\test\raretestobject.cpp(96): warning C4244: '=': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+  RareTest.cpp
+c:\users\scott\desktop\rvs\rvs\test\raretestobject.h(106): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\test\raretest.cpp(5): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\test\raretest.cpp(58): warning C4244: 'argument': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\rvs\rvs\test\raretest.cpp(65): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\test\raretest.cpp(64): warning C4101: 'j': unreferenced local variable
+  SimulationHelper.cpp
+c:\users\scott\desktop\rvs\rvs\simulation\simulationhelper.cpp(47): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,1,0,-1,1>
+          ]
+c:\users\scott\desktop\rvs\rvs\simulation\simulationhelper.cpp(117): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\simulation\simulationhelper.cpp(118): warning C4244: 'initializing': conversion from 'Eigen::EigenBase<Derived>::Index' to 'int', possible loss of data
+          with
+          [
+              Derived=Eigen::Matrix<double,-1,-1,0,-1,-1>
+          ]
+c:\users\scott\desktop\rvs\rvs\simulation\simulationhelper.cpp(186): warning C4554: '&': check operator precedence for possible error; use parentheses to clarify precedence
+  Simulation.cpp
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(14): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(15): warning C4244: 'argument': conversion from 'double' to 'const int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(17): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(24): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(5): warning C4101: 'j': unreferenced local variable
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(5): warning C4101: 'i': unreferenced local variable
+c:\users\scott\desktop\rvs\rvs\simulation\simulation.cpp(71): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+  SampleParserUtils.cpp
+  SampleParser.cpp
+c:\users\scott\desktop\rvs\rvs\parser\sample\sampleparser.cpp(26): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\sample\sampleparser.cpp(35): warning C4101: 'index': unreferenced local variable
+  ParserTools.cpp
+c:\users\scott\desktop\rvs\rvs\parser\parsertools.cpp(59): warning C4129: '.': unrecognized character escape sequence
+  InputParser.cpp
+  VariantFilter.cpp
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilter.cpp(15): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilter.cpp(29): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+c:\users\scott\desktop\rvs\rvs\parser\filter\variantfilter.cpp(39): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  BEDParserUtils.cpp
+c:\users\scott\desktop\rvs\rvs\parser\bed\bedparserutils.h(51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  BEDParser.cpp
+c:\users\scott\desktop\rvs\rvs\parser\bed\bedparserutils.h(51): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  OutputHandler.cpp
+  CompQuadForm.cpp
+  Generating Code...
+  Skipping... (no relevant changes detected)
+  VectorHelper.cpp
+  RVS.vcxproj -> C:\Users\Scott\Desktop\RVS\x64\Debug\RVS.exe
